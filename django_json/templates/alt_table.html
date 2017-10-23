@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+<title>alternatives.json</title>
+
+
+{% block body %}
+
+<body>
+    <div class="container">
+        <h2>Alternatives.json</h2>
+
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Supply</th>
+                    <th>alternatives</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in alt_data.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>
+                    {% for supply in value %}
+                    {{ supply }}  | 
+                    {% endfor %}
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+{% endblock body %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+<title>spares.json</title>
+
+
+{% block body %}
+
+<body>
+    <div class="container">
+        <h2>Spares.json</h2>
+
+        <table class="table table-condensed">
+            <thead>
+                {% for key, value in data.items %}
+                <tr>
+                    <th>Supply</th>
+                    {% for par in value.keys %}
+                    <th>{{par}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>{{ key }}</td>
+                    {% for num in value.values %}
+                    <td>{{ num }}</td>
+                    {% endfor %} 
+
+                </tr>
+            </tbody>
+            
+            {% endfor %} 
+        </table>
+
+    </div>
+</body>
+{% endblock body %}

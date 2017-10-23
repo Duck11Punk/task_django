@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+<title>json_table</title>
+
+
+{% block body %} 
+<body>
+    <div class="container">
+        <h2>json_table</h2>
+        <table class="table table-condensed">
+            <thead>
+                {% for key, value in json_table.items %}
+                <tr>
+                    <th>Supply</th>
+                    {% for par in value.keys %}
+                    <th>{{par}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>{{ key }}</td>
+                    {% for val in value.values %}
+
+                    <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            {% endfor %}
+            
+            {% for key, value in json_data.items %}
+            <tbody>
+                <tr>
+                        
+                    <td>
+                        <p class="text-danger">{{ key }}</p>
+                    </td>
+                    {% for val in value.values %}
+                    <td>
+                        <p class="text-danger">{{ val }}</p>
+                    </td>
+
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+
+        </table>
+
+    </div>
+</body>
+{% endblock body %}
