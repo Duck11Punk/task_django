@@ -16,8 +16,8 @@ def alternatives_json(url_address):
         return  ast.literal_eval(alt_json_data)
     else:
         return None
-
-if __name__ == '__main__':
+"""
+if __name__ == "__main__":
     x = alternatives_json(ALT_MAIN_API)
     for supply in x['alternatives']:
         print(supply, '=>')
@@ -25,5 +25,5 @@ if __name__ == '__main__':
             print(alter)
         print()    
     
-
+"""
 

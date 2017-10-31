@@ -1,74 +1,25 @@
-from .alternatives_json import ALT_MAIN_API, alternatives_json
 from .spares_json import MAIN_API, spares_json
-from collections import defaultdict
+from .alternatives_json import ALT_MAIN_API, alternatives_json
+
 
 alt = alternatives_json(ALT_MAIN_API)
 spare = spares_json(MAIN_API)
 
-
-
 task_dict = {}
-sup={}
-support = {}
-keys = alt['alternatives'].keys()
-alt_picks = alt['alternatives'].values()
 
-for item in alt_picks:
-    for supply in item:
-        if supply in ['RAM 16Gb PC4-2133']:
-            support.update({supply: spare.get('RAM 16Gb PC4-2133 REG')})
-            continue
-        if supply =='RAM 16Gb PC4-2400':
-            support.update({supply: spare.get('RAM 16GB PC4-2400 REG')})
-            continue
-        support.update({supply: spare.get(supply)})
+for key in alt['alternatives']:
+    task_dict.setdefault(key,{})
+    for item in alt['alternatives'][key]:
+        for skey in spare:
+            if item.upper() == skey.upper():
+                for key_par, value in spare[skey].items():
+                    print(key_par, value)
+                    task_dict[key].setdefault(key_par,[]).append(value)
 
-
-
-task_dict = defaultdict(list)
-
-def main(task_dict,support, alt):
-    for key_alt in alt['alternatives']: 
-        for value_alt in alt['alternatives'][key_alt]:
-            task_dict[key_alt].append(support[value_alt]) 
-    return task_dict
-
-
-x = main(task_dict, support, alt)
-
-for item in x:
-    sup.setdefault(item, []) 
-    for value in x[item]:
-        for key, num in value.items():
-            sup[item].append({key: value[key]})
-        
-sup2 = {}
-
-for key, value in sup.items():
-    sup2.setdefault(key,{})
-    for dic in x[key]:
-        for par1 in dic:
-            sup2[key].setdefault(par1,[]).append(dic[par1])
-            
-
-for key in sup2:
-    sup2[key]['count'] = sum(sup2[key]['count'])
-    sup2[key]['arrive'] = sum(sup2[key]['arrive'])
-    sup2[key]['mustbe'] = sum(sup2[key]['mustbe'])
+for key in task_dict:
+    task_dict[key]['count'] = sum(task_dict[key]['count'])
+    task_dict[key]['arrive'] = sum(task_dict[key]['arrive'])
+    task_dict[key]['mustbe'] = sum(task_dict[key]['mustbe'])
     
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
 
 
