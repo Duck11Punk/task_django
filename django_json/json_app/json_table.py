@@ -13,7 +13,6 @@ for key in alt['alternatives']:
         for skey in spare:
             if item.upper() == skey.upper():
                 for key_par, value in spare[skey].items():
-                    print(key_par, value)
                     task_dict[key].setdefault(key_par,[]).append(value)
 
 for key in task_dict:
